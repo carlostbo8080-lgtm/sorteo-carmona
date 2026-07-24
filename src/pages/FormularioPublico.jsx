@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CheckCircle2, Loader2, MapPin, Phone, Sparkles, Ticket, User, UserCheck } from "lucide-react";
 import { supabase } from "../lib/supabase";
-import { LISTA_BARRIOS, normalizarCedula, normalizarTelefono, telefonoValido, traducirErrorSupabase } from "../utils/helpers";
+import { BARRIOS_POR_CATEGORIA, normalizarCedula, normalizarTelefono, telefonoValido, traducirErrorSupabase } from "../utils/helpers";
 import logo from "../img/davidlogo2.jpeg";
 
 const FORM_VACIO = { nombre: "", cedula: "", telefono: "", barrio: "", barrioOtro: "" };
@@ -187,8 +187,12 @@ export function FormularioPublico() {
                   className="w-full rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3.5 text-[15px] font-medium text-zinc-900 outline-none transition-all duration-150 focus:border-ciudad focus:bg-white focus:ring-2 focus:ring-ciudad/15"
                 >
                   <option value="">Seleccioná tu barrio</option>
-                  {LISTA_BARRIOS.map((b) => (
-                    <option key={b} value={b}>{b}</option>
+                  {Object.entries(BARRIOS_POR_CATEGORIA).map(([categoria, barrios]) => (
+                    <optgroup key={categoria} label={categoria}>
+                      {barrios.map((b) => (
+                        <option key={b} value={b}>{b}</option>
+                      ))}
+                    </optgroup>
                   ))}
                   <option value="__otro__">Otro (especificar)</option>
                 </select>

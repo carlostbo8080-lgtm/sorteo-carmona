@@ -7,18 +7,20 @@ export const telefonoValido = (v) => {
   return soloDigitos.length >= 8 && soloDigitos.length <= 15;
 };
 
-export const LISTA_BARRIOS = [
-  "San Miguel", "San Antonio", "San Francisco", "San José", "Virgen de Fátima",
-  "San Roque González de Santa Cruz", "Santa Teresita", "Virgen del Rosario",
-  "San Pedro", "Santa Lucía", "San Blas", "Villa Artesanal", "Villa Jazmín",
-  "María Auxiliadora", "Santo Tomás", "21 de Julio", "Aparypy", "Rosado",
-  "Mompox", "Ensenada", "Santa Rosa", "Costa Alegre", "Loma Verde",
-  "Potrero \"Zona A\"", "Potrero \"Zona B\"", "Potrero \"Zona C\"",
-  "Núcleo Rural 6 de Enero", "Jhuyvaty", "Isla Florida", "Karanda'yty",
-  "Santa Cruz", "Serranía", "Loma Clavel", "Colonia Independencia",
-  "Tacuaralito", "Caacupemí", "Itá Guazú", "Vallepé", "Zanja Jhú",
-  "Yhovy", "Mbocayaty", "Santa Librada", "Costa Pucú", "Hugua Pytã",
-];
+export const BARRIOS_POR_CATEGORIA = {
+  "Barrios Urbanos": [
+    "San Miguel", "San Antonio", "San Francisco", "San José", "Virgen de Fátima",
+    "San Roque", "Santa Teresita", "Virgen del Rosario", "San Pedro", "Santa Lucía",
+    "San Blas", "Villa Artesanal", "Villa Jazmín", "María Auxiliadora", "Juan Pablo II",
+  ],
+  "Compañías": [
+    "21 de Julio", "Ensenada", "Santa Rosa", "Aparypy", "Villa de Mercedes",
+    "Costa Alegre", "Loma Verde", "Mompox", "Rosado", "Potrero (Zona A)",
+    "Potrero (Zona B)", "Jhyubaty", "Isla Florida", "Isla Guazú", "Asentamiento Kuña Aty",
+  ],
+};
+
+export const LISTA_BARRIOS = Object.values(BARRIOS_POR_CATEGORIA).flat();
 
 export function traducirErrorSupabase(mensaje) {
   const m = String(mensaje || "").toLowerCase();

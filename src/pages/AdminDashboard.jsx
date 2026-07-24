@@ -178,31 +178,27 @@ export function AdminDashboard({ session }) {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-        <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <div className="mb-5 grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="rounded-2xl border border-black/5 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-4">
             <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
               <Users size={12} strokeWidth={2.5} />
               Total registros
             </div>
             <div className="mt-1 font-display text-[30px] leading-none text-zinc-900">{registros.length}</div>
           </div>
-          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <div className="rounded-2xl border border-black/5 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-4">
             <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
               <CheckCircle2 size={12} strokeWidth={2.5} className="text-emerald-500" />
               Aptos
             </div>
             <div className="mt-1 font-display text-[30px] leading-none text-emerald-600">{aptosCount}</div>
           </div>
-          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <div className="rounded-2xl border border-black/5 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-4">
             <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
               <XCircle size={12} strokeWidth={2.5} className="text-zinc-400" />
               No aptos
             </div>
             <div className="mt-1 font-display text-[30px] leading-none text-zinc-500">{noAptosCount}</div>
-          </div>
-          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-            <div className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">Filtro actual</div>
-            <div className="mt-1 font-display text-[30px] leading-none text-brand">{filtrados.length}</div>
           </div>
         </div>
 
