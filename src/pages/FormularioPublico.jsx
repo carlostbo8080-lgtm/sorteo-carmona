@@ -99,9 +99,9 @@ export function FormularioPublico() {
             className="font-display leading-[0.95] text-white animate-fade-in-up"
             style={{ fontSize: "clamp(40px, 9vw, 56px)", letterSpacing: "0.01em", animationDelay: "110ms" }}
           >
-            Registrate y formá
+            Completá el formulario
             <br />
-            parte de nuestra comunidad
+            y participá del sorteo
           </h1>
           <div
             className="mx-auto mt-4 h-[3px] w-10 animate-fade-in-up"
@@ -153,7 +153,7 @@ export function FormularioPublico() {
                   inputMode="numeric"
                   value={form.cedula}
                   onChange={(e) => setForm((f) => ({ ...f, cedula: e.target.value.replace(/\D/g, "") }))}
-                  placeholder="Solo números"
+                  placeholder="Ej: 4123456"
                   className="w-full rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3.5 text-[15px] font-medium text-zinc-900 outline-none placeholder:text-zinc-400 transition-all duration-150 focus:border-brand focus:bg-white focus:ring-2 focus:ring-brand/12"
                 />
               </Campo>
