@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Download, FileSpreadsheet, LogOut, PartyPopper, Search, Trash2, Users } from "lucide-react";
+import { CheckCircle2, Download, FileSpreadsheet, LogOut, PartyPopper, Search, Trash2, Users, XCircle } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { traducirErrorSupabase } from "../utils/helpers";
 import logo from "../img/davidlogo.png";
@@ -10,6 +10,7 @@ export function AdminDashboard({ session }) {
   const [error, setError] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [barrioFiltro, setBarrioFiltro] = useState("");
+  const [aptoFiltro, setAptoFiltro] = useState("todos"); // todos | apto | no-apto
   const [exportando, setExportando] = useState(false);
   const [borrandoId, setBorrandoId] = useState(null);
 
@@ -43,10 +44,15 @@ export function AdminDashboard({ session }) {
 
   const barrios = useMemo(() => [...new Set(registros.map((r) => r.barrio))].sort((a, b) => a.localeCompare(b, "es")), [registros]);
 
+  const aptosCount = useMemo(() => registros.filter((r) => r.apto_sorteo).length, [registros]);
+  const noAptosCount = registros.length - aptosCount;
+
   const filtrados = useMemo(() => {
     const q = busqueda.trim().toLowerCase();
     return registros.filter((r) => {
       if (barrioFiltro && r.barrio !== barrioFiltro) return false;
+      if (aptoFiltro === "apto" && !r.apto_sorteo) return false;
+      if (aptoFiltro === "no-apto" && r.apto_sorteo) return false;
       if (!q) return true;
       return (
         r.nombre.toLowerCase().includes(q) ||
@@ -55,10 +61,12 @@ export function AdminDashboard({ session }) {
         r.barrio.toLowerCase().includes(q)
       );
     });
-  }, [registros, busqueda, barrioFiltro]);
+  }, [registros, busqueda, barrioFiltro, aptoFiltro]);
 
   const handleExportar = async () => {
-    if (exportando || filtrados.length === 0) return;
+    // Siempre exporta el 100% de los registros, sin importar los filtros
+    // en pantalla (búsqueda, barrio o estado del sorteo).
+    if (exportando || registros.length === 0) return;
     setExportando(true);
     try {
       const [{ default: ExcelJS }, { saveAs }] = await Promise.all([import("exceljs"), import("file-saver")]);
@@ -81,24 +89,27 @@ export function AdminDashboard({ session }) {
         { header: "Cédula", key: "cedula", width: 16 },
         { header: "Número de teléfono", key: "telefono", width: 20 },
         { header: "Barrio", key: "barrio", width: 26 },
+        { header: "Estado del Sorteo", key: "estado", width: 20 },
       ];
 
-      sheet.mergeCells("A1:E1");
+      sheet.mergeCells("A1:F1");
       sheet.getRow(1).height = 32;
-      sheet.getCell("A1").value = "REGISTRO PARA EL SORTEO - DAVID DVDBURG";
+      sheet.getCell("A1").value = "REGISTROS PARA EL SORTEO - DAVID DVDBURG";
       sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: ROJO } };
       sheet.getCell("A1").font = { bold: true, size: 15, color: { argb: BLANCO } };
       sheet.getCell("A1").alignment = { vertical: "middle", horizontal: "left", indent: 1 };
 
-      sheet.mergeCells("A2:E2");
+      sheet.mergeCells("A2:F2");
       sheet.getRow(2).height = 20;
       const ahora = new Date();
-      sheet.getCell("A2").value = `Generado el ${ahora.toLocaleDateString("es-PY", { day: "2-digit", month: "long", year: "numeric" })} — Total: ${filtrados.length} registros`;
+      sheet.getCell("A2").value =
+        `Generado el ${ahora.toLocaleDateString("es-PY", { day: "2-digit", month: "long", year: "numeric" })} — ` +
+        `Total: ${registros.length} registros (${aptosCount} aptos, ${noAptosCount} no aptos)`;
       sheet.getCell("A2").font = { italic: true, size: 10, color: { argb: "FF71717A" } };
       sheet.getCell("A2").alignment = { vertical: "middle", horizontal: "left", indent: 1 };
 
       const headerRow = sheet.getRow(3);
-      headerRow.values = ["Fecha de registro", "Nombre y apellido", "Cédula", "Número de teléfono", "Barrio"];
+      headerRow.values = ["Fecha de registro", "Nombre y apellido", "Cédula", "Número de teléfono", "Barrio", "Estado del Sorteo"];
       headerRow.eachCell((cell) => {
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: ROJO } };
         cell.font = { bold: true, color: { argb: BLANCO } };
@@ -106,12 +117,13 @@ export function AdminDashboard({ session }) {
         cell.alignment = { vertical: "middle", horizontal: "center" };
       });
       headerRow.height = 22;
-      sheet.autoFilter = "A3:E3";
+      sheet.autoFilter = "A3:F3";
 
-      filtrados.forEach((r, i) => {
+      registros.forEach((r, i) => {
         const fecha = new Date(r.created_at);
         const fechaTexto = `${fecha.toLocaleDateString("es-PY")} ${fecha.toLocaleTimeString("es-PY", { hour: "2-digit", minute: "2-digit" })}`;
-        const row = sheet.addRow([fechaTexto, r.nombre, r.cedula, r.telefono, r.barrio]);
+        const estadoTexto = r.apto_sorteo ? "Apto para el sorteo" : "No apto para el sorteo";
+        const row = sheet.addRow([fechaTexto, r.nombre, r.cedula, r.telefono, r.barrio, estadoTexto]);
         const fillArgb = i % 2 !== 0 ? FILA_PAR : BLANCO;
         row.eachCell((cell, colNumber) => {
           cell.border = bordeCompleto;
@@ -141,7 +153,7 @@ export function AdminDashboard({ session }) {
               <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
             </div>
             <div>
-              <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">REGISTRO PARA EL SORTEO</div>
+              <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">REGISTROS PARA EL SORTEO</div>
               <div className="font-condensed text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-400">David Dvdburg — Concejal 2026</div>
             </div>
           </div>
@@ -174,8 +186,22 @@ export function AdminDashboard({ session }) {
             </div>
             <div className="mt-1 font-display text-[30px] leading-none text-zinc-900">{registros.length}</div>
           </div>
-          <div className="col-span-1 rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:col-span-3">
-            <div className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">Resultado del filtro actual</div>
+          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
+              <CheckCircle2 size={12} strokeWidth={2.5} className="text-emerald-500" />
+              Aptos
+            </div>
+            <div className="mt-1 font-display text-[30px] leading-none text-emerald-600">{aptosCount}</div>
+          </div>
+          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
+              <XCircle size={12} strokeWidth={2.5} className="text-zinc-400" />
+              No aptos
+            </div>
+            <div className="mt-1 font-display text-[30px] leading-none text-zinc-500">{noAptosCount}</div>
+          </div>
+          <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+            <div className="text-[10px] font-bold uppercase tracking-wide text-zinc-400">Filtro actual</div>
             <div className="mt-1 font-display text-[30px] leading-none text-brand">{filtrados.length}</div>
           </div>
         </div>
@@ -201,9 +227,26 @@ export function AdminDashboard({ session }) {
               <option key={b} value={b}>{b}</option>
             ))}
           </select>
+          <div className="inline-flex flex-shrink-0 rounded-xl border border-zinc-200 bg-white p-1">
+            {[
+              { valor: "todos", label: "Todos" },
+              { valor: "apto", label: "Aptos" },
+              { valor: "no-apto", label: "No aptos" },
+            ].map((opcion) => (
+              <button
+                key={opcion.valor}
+                onClick={() => setAptoFiltro(opcion.valor)}
+                className={`rounded-lg px-3 py-2 font-condensed text-[12px] font-bold uppercase tracking-wide transition-colors ${
+                  aptoFiltro === opcion.valor ? "bg-brand text-white" : "text-zinc-500 hover:bg-zinc-50"
+                }`}
+              >
+                {opcion.label}
+              </button>
+            ))}
+          </div>
           <button
             onClick={handleExportar}
-            disabled={exportando || filtrados.length === 0}
+            disabled={exportando || registros.length === 0}
             className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-condensed text-[13px] font-extrabold uppercase tracking-wide text-white shadow-brand transition-all hover:-translate-y-px hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-50"
           >
             {exportando ? (
@@ -237,6 +280,7 @@ export function AdminDashboard({ session }) {
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Cédula</th>
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Teléfono</th>
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Barrio</th>
+                    <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Estado del Sorteo</th>
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide"></th>
                   </tr>
                 </thead>
@@ -251,6 +295,19 @@ export function AdminDashboard({ session }) {
                       <td className="px-4 py-3 text-zinc-700">{r.cedula}</td>
                       <td className="px-4 py-3 text-zinc-700">{r.telefono}</td>
                       <td className="px-4 py-3 text-zinc-700">{r.barrio}</td>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        {r.apto_sorteo ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 font-condensed text-[10.5px] font-bold uppercase tracking-wide text-emerald-700">
+                            <CheckCircle2 size={11} strokeWidth={2.5} />
+                            Apto
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-2.5 py-1 font-condensed text-[10.5px] font-bold uppercase tracking-wide text-zinc-500">
+                            <XCircle size={11} strokeWidth={2.5} />
+                            No apto
+                          </span>
+                        )}
+                      </td>
                       <td className="px-4 py-3 text-right">
                         <button
                           onClick={() => borrarRegistro(r)}

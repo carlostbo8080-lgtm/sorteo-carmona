@@ -71,6 +71,11 @@ CREATE POLICY "sorteo_ganadores_delete_publico" ON sorteo_ganadores
 -- Expone solo el número total de registros (sin filas individuales)
 -- para que la página pública del sorteo pueda mostrarlo sin acceso
 -- de lectura a `registros`.
+--
+-- ACTUALIZADO en schema_padron.sql: filtra por `apto_sorteo = true`
+-- (solo cuenta a quienes están en el padrón electoral de Tobatí).
+-- La definición de abajo queda como referencia histórica; la vista
+-- real en la base ya tiene el filtro aplicado.
 CREATE OR REPLACE VIEW sorteo_participantes_conteo AS
   SELECT count(*)::int AS total FROM registros;
 
@@ -79,6 +84,8 @@ GRANT SELECT ON sorteo_participantes_conteo TO anon, authenticated;
 -- ─── VISTA: participantes públicos para la ruleta ─────────────────
 -- Expone SOLO nombre y barrio (nunca cédula ni teléfono) para poder
 -- dibujar los segmentos de la ruleta sin dar acceso a `registros`.
+--
+-- ACTUALIZADO en schema_padron.sql: mismo filtro `apto_sorteo = true`.
 CREATE OR REPLACE VIEW sorteo_participantes_publico AS
   SELECT id, nombre, barrio, created_at FROM registros ORDER BY created_at ASC;
 

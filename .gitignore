@@ -6,3 +6,4 @@ dist
 .vercel
 .vscode
 supabase/.temp
+src/padron
