@@ -14,6 +14,94 @@
 .animate-fade-in-up { animation: fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) both; }
 .animate-fade-in    { animation: fadeIn 0.25s ease both; }
 
+@keyframes sorteo-confeti-caida {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.95; }
+  85%  { opacity: 0.9; }
+  100% { transform: translateY(105vh) rotate(var(--rot-final)); opacity: 0; }
+}
+
+@keyframes sorteo-pulso {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,160,23,0.45); }
+  50%      { box-shadow: 0 0 0 14px rgba(212,160,23,0); }
+}
+.animate-sorteo-pulso { animation: sorteo-pulso 1.8s ease-out infinite; }
+
+@keyframes sorteo-rebote {
+  0%   { transform: scale(1) rotate(0deg); }
+  30%  { transform: scale(1.018) rotate(1.4deg); }
+  60%  { transform: scale(0.994) rotate(-0.7deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.animate-sorteo-rebote { animation: sorteo-rebote 0.6s ease-out; }
+
+@keyframes sorteo-glow {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 1; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes sorteo-chispa {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; }
+}
+
+@keyframes sorteo-zoom-in {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-sorteo-zoom { animation: sorteo-zoom-in 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ── partículas ambientales flotando ─────────────────────────── */
+@keyframes sorteo-flotar {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-55vh) translateX(14px); }
+  100% { transform: translateY(-110vh) translateX(-14px); }
+}
+
+@keyframes sorteo-titilar {
+  0%, 100% { opacity: 0.15; transform: scale(0.85); }
+  50%      { opacity: 0.9; transform: scale(1.15); }
+}
+.animate-sorteo-titilar { animation: sorteo-titilar 3.2s ease-in-out infinite; }
+
+/* ── brillo pulsante del botón principal ─────────────────────── */
+@keyframes sorteo-boton-pulso {
+  0%, 100% { box-shadow: 0 16px 38px -8px rgba(200,16,46,0.65), 0 0 0 0 rgba(232,32,62,0.55); }
+  50%      { box-shadow: 0 16px 38px -8px rgba(200,16,46,0.65), 0 0 0 16px rgba(232,32,62,0); }
+}
+.animate-sorteo-boton-pulso { animation: sorteo-boton-pulso 2.4s ease-out infinite; }
+
+/* ── aura giratoria detrás del tambor ─────────────────────────── */
+@keyframes sorteo-rotar {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-sorteo-rotar { animation: sorteo-rotar 9s linear infinite; }
+
+/* ── respiración muy sutil del fondo ──────────────────────────── */
+@keyframes sorteo-respirar {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+.animate-sorteo-respirar { animation: sorteo-respirar 10s ease-in-out infinite; }
+
+/* ── aparición del contador al cambiar ────────────────────────── */
+@keyframes sorteo-numero-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-sorteo-numero-pop { animation: sorteo-numero-pop 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ── trofeo del ganador ───────────────────────────────────────── */
+@keyframes sorteo-trofeo {
+  0%   { transform: scale(0.5) rotate(-12deg); opacity: 0; }
+  55%  { transform: scale(1.15) rotate(6deg); opacity: 1; }
+  75%  { transform: scale(0.96) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.animate-sorteo-trofeo { animation: sorteo-trofeo 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+
 ::-webkit-scrollbar        { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track  { background: transparent; }
 ::-webkit-scrollbar-thumb  { background: #d4d4d8; border-radius: 9999px; }

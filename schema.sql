@@ -29,10 +29,12 @@ CREATE INDEX IF NOT EXISTS registros_created_at_idx
 ALTER TABLE registros ENABLE ROW LEVEL SECURITY;
 
 -- Cualquier visitante (rol "anon") puede ENVIAR el formulario, pero
--- nunca leer, modificar ni borrar registros.
+-- nunca leer, modificar ni borrar registros. También se permite a
+-- "authenticated" para que un admin logueado (p. ej. probando el
+-- formulario desde el mismo navegador que /admin) también pueda enviarlo.
 DROP POLICY IF EXISTS "registros_insert_publico" ON registros;
 CREATE POLICY "registros_insert_publico" ON registros
-  FOR INSERT TO anon
+  FOR INSERT TO anon, authenticated
   WITH CHECK (true);
 
 -- Solo un usuario autenticado (el administrador) puede leer y borrar.

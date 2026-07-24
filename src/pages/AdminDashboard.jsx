@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Download, FileSpreadsheet, LogOut, Search, Users } from "lucide-react";
+import { Download, FileSpreadsheet, LogOut, PartyPopper, Search, Trash2, Users } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { traducirErrorSupabase } from "../utils/helpers";
 import logo from "../img/davidlogo.png";
@@ -11,6 +11,7 @@ export function AdminDashboard({ session }) {
   const [busqueda, setBusqueda] = useState("");
   const [barrioFiltro, setBarrioFiltro] = useState("");
   const [exportando, setExportando] = useState(false);
+  const [borrandoId, setBorrandoId] = useState(null);
 
   useEffect(() => {
     cargarRegistros();
@@ -23,6 +24,21 @@ export function AdminDashboard({ session }) {
     if (err) setError(traducirErrorSupabase(err.message));
     else setRegistros(data || []);
     setCargando(false);
+  }
+
+  async function borrarRegistro(registro) {
+    const confirmado = window.confirm(`¿Borrar el registro de "${registro.nombre}"? Esta acción no se puede deshacer.`);
+    if (!confirmado) return;
+
+    setBorrandoId(registro.id);
+    const { error: err } = await supabase.from("registros").delete().eq("id", registro.id);
+    setBorrandoId(null);
+
+    if (err) {
+      setError(traducirErrorSupabase(err.message));
+      return;
+    }
+    setRegistros((prev) => prev.filter((r) => r.id !== registro.id));
   }
 
   const barrios = useMemo(() => [...new Set(registros.map((r) => r.barrio))].sort((a, b) => a.localeCompare(b, "es")), [registros]);
@@ -69,7 +85,7 @@ export function AdminDashboard({ session }) {
 
       sheet.mergeCells("A1:E1");
       sheet.getRow(1).height = 32;
-      sheet.getCell("A1").value = "REGISTRO DE CONTACTOS - DAVID DVDBURG";
+      sheet.getCell("A1").value = "REGISTRO PARA EL SORTEO - DAVID DVDBURG";
       sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: ROJO } };
       sheet.getCell("A1").font = { bold: true, size: 15, color: { argb: BLANCO } };
       sheet.getCell("A1").alignment = { vertical: "middle", horizontal: "left", indent: 1 };
@@ -125,11 +141,18 @@ export function AdminDashboard({ session }) {
               <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
             </div>
             <div>
-              <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">Registro de Contactos</div>
+              <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">REGISTRO PARA EL SORTEO</div>
               <div className="font-condensed text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-400">David Dvdburg — Concejal 2026</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <a
+              href="/sorteo"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-zinc-200 px-3.5 py-2 font-condensed text-[12px] font-bold uppercase tracking-wide text-zinc-600 transition-colors hover:bg-zinc-50"
+            >
+              <PartyPopper size={14} strokeWidth={2.5} />
+              Ir al sorteo
+            </a>
             <span className="hidden text-[13px] text-zinc-400 sm:inline">{session.user.email}</span>
             <button
               onClick={() => supabase.auth.signOut()}
@@ -214,6 +237,7 @@ export function AdminDashboard({ session }) {
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Cédula</th>
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Teléfono</th>
                     <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide">Barrio</th>
+                    <th className="px-4 py-3 font-condensed text-[11px] font-bold uppercase tracking-wide"></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-100">
@@ -227,6 +251,16 @@ export function AdminDashboard({ session }) {
                       <td className="px-4 py-3 text-zinc-700">{r.cedula}</td>
                       <td className="px-4 py-3 text-zinc-700">{r.telefono}</td>
                       <td className="px-4 py-3 text-zinc-700">{r.barrio}</td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          onClick={() => borrarRegistro(r)}
+                          disabled={borrandoId === r.id}
+                          title="Borrar registro"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          <Trash2 size={15} strokeWidth={2.25} />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

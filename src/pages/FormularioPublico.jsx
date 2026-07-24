@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Loader2, MapPin, Phone, User, UserCheck } from "lucide-react";
+import { CheckCircle2, Loader2, MapPin, Phone, Ticket, User, UserCheck } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { LISTA_BARRIOS, normalizarCedula, normalizarTelefono, telefonoValido, traducirErrorSupabase } from "../utils/helpers";
 import logo from "../img/davidlogo.png";
@@ -90,6 +90,13 @@ export function FormularioPublico() {
             <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
           </div>
           <div
+            className="mb-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-condensed text-[11px] font-bold uppercase tracking-[0.14em] text-amber-950 animate-fade-in-up"
+            style={{ background: "linear-gradient(90deg, #fde68a, #f59e0b)", animationDelay: "30ms" }}
+          >
+            <Ticket size={13} strokeWidth={2.5} />
+            Sorteo abierto
+          </div>
+          <div
             className="mb-2 font-condensed text-[11px] font-bold uppercase tracking-[0.22em] animate-fade-in-up"
             style={{ color: "rgba(255,255,255,0.6)", animationDelay: "60ms" }}
           >
@@ -111,7 +118,7 @@ export function FormularioPublico() {
             className="mt-4 max-w-xs text-[14px] leading-relaxed animate-fade-in-up"
             style={{ color: "rgba(255,255,255,0.75)", animationDelay: "200ms" }}
           >
-            Dejanos tus datos y sé parte del cambio que estamos construyendo juntos en Tobatí.
+            Dejanos tus datos, entrá al sorteo y sé parte del cambio que estamos construyendo juntos en Tobatí.
           </p>
         </div>
       </div>
@@ -124,15 +131,15 @@ export function FormularioPublico() {
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
                 <CheckCircle2 size={34} className="text-emerald-600" strokeWidth={2} />
               </div>
-              <h2 className="font-display text-[26px] uppercase tracking-[0.02em] text-zinc-900">¡Listo!</h2>
+              <h2 className="font-display text-[26px] uppercase tracking-[0.02em] text-zinc-900">¡Ya estás participando!</h2>
               <p className="mt-2 text-[15px] leading-relaxed text-zinc-600">
-                Gracias por registrarte. Tus datos fueron enviados correctamente.
+                Tus datos fueron enviados correctamente y quedaste anotado en el sorteo.
               </p>
               <button
                 onClick={() => setEnviado(false)}
                 className="mt-6 rounded-xl border border-zinc-200 px-5 py-3 font-condensed text-[13px] font-bold uppercase tracking-wide text-zinc-600 transition-colors hover:bg-zinc-50"
               >
-                Registrar a otra persona
+                Anotar a otra persona
               </button>
             </div>
           ) : (
@@ -209,12 +216,15 @@ export function FormularioPublico() {
                     Enviando…
                   </>
                 ) : (
-                  "Enviar datos"
+                  <>
+                    <Ticket size={18} strokeWidth={2.5} />
+                    Participar del sorteo
+                  </>
                 )}
               </button>
 
               <p className="text-center text-[11px] leading-relaxed text-zinc-400">
-                Tus datos se guardan de forma segura y solo son utilizados con fines de la campaña.
+                Tus datos se guardan de forma segura y se usan para el sorteo y fines de la campaña.
               </p>
             </form>
           )}
