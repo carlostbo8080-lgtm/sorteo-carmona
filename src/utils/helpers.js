@@ -16,7 +16,7 @@ export const BARRIOS_POR_CATEGORIA = {
   "Compañías": [
     "21 de Julio", "Ensenada", "Santa Rosa", "Aparypy", "Villa de Mercedes",
     "Costa Alegre", "Loma Verde", "Mompox", "Rosado", "Potrero (Zona A)",
-    "Potrero (Zona B)", "Jhyubaty", "Isla Florida", "Isla Guazú", "Asentamiento Kuña Aty",
+    "Potrero (Zona B)", "Jhuybaty", "Isla Florida", "Isla Guazú", "Asentamiento Kuña Aty",
   ],
 };
 
