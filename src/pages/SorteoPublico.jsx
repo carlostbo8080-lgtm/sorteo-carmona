@@ -240,7 +240,7 @@ export function SorteoPublico() {
 
   if (cargando) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#08050a]">
+      <div className="flex min-h-screen items-center justify-center bg-[#0a0703]">
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/10 border-t-[#D4A017]" />
       </div>
     );
@@ -251,7 +251,7 @@ export function SorteoPublico() {
   return (
     <div
       className="relative flex min-h-screen flex-col items-center overflow-hidden px-5 py-8 sm:px-8 sm:py-10"
-      style={{ background: "radial-gradient(140% 100% at 50% -10%, #3d0712 0%, #1a0509 42%, #060305 78%)" }}
+      style={{ background: "radial-gradient(140% 100% at 50% -10%, #241a08 0%, #110b04 42%, #050403 78%)" }}
     >
       <div
         className="pointer-events-none absolute animate-[sorteo-glow_7s_ease-in-out_infinite] animate-sorteo-respirar"
@@ -259,11 +259,11 @@ export function SorteoPublico() {
       />
       <div
         className="pointer-events-none absolute"
-        style={{ bottom: "-15%", right: "-8%", width: 480, height: 480, borderRadius: 9999, background: "radial-gradient(circle, rgba(200,16,46,0.26), transparent 70%)" }}
+        style={{ bottom: "-15%", right: "-8%", width: 480, height: 480, borderRadius: 9999, background: "radial-gradient(circle, rgba(224,150,40,0.26), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute"
-        style={{ bottom: "8%", left: "-12%", width: 340, height: 340, borderRadius: 9999, background: "radial-gradient(circle, rgba(200,16,46,0.14), transparent 70%)" }}
+        style={{ bottom: "8%", left: "-12%", width: 340, height: 340, borderRadius: 9999, background: "radial-gradient(circle, rgba(224,150,40,0.14), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute"
@@ -339,7 +339,7 @@ export function SorteoPublico() {
       <div className="relative z-10 mt-7 w-full max-w-3xl flex-1">
         <div
           className="pointer-events-none absolute -inset-px -z-10 rounded-[34px] opacity-60 blur-md"
-          style={{ background: "linear-gradient(135deg, rgba(212,160,23,0.5), rgba(200,16,46,0.15) 45%, rgba(212,160,23,0.35))" }}
+          style={{ background: "linear-gradient(135deg, rgba(212,160,23,0.5), rgba(224,150,40,0.15) 45%, rgba(212,160,23,0.35))" }}
         />
         <div
           className="relative flex w-full flex-col items-center justify-center rounded-[32px] border border-white/10 bg-white/[0.045] px-4 py-8 shadow-[0_35px_90px_-20px_rgba(0,0,0,0.7)] backdrop-blur-md animate-fade-in-up sm:px-10 sm:py-10"
@@ -348,7 +348,7 @@ export function SorteoPublico() {
           <div className="relative flex items-center justify-center">
             <div
               className="pointer-events-none absolute -inset-6 -z-10 animate-sorteo-rotar rounded-full opacity-70 blur-2xl sm:-inset-10"
-              style={{ background: "conic-gradient(from 0deg, rgba(212,160,23,0.35), transparent 30%, rgba(200,16,46,0.3), transparent 70%, rgba(212,160,23,0.35))" }}
+              style={{ background: "conic-gradient(from 0deg, rgba(212,160,23,0.35), transparent 30%, rgba(224,150,40,0.3), transparent 70%, rgba(212,160,23,0.35))" }}
             />
             <TamborSorteo
               segmentos={segmentosParaMostrar}
@@ -365,7 +365,7 @@ export function SorteoPublico() {
                 <button
                   onClick={iniciarGiro}
                   disabled={segmentos.length === 0}
-                  className="animate-sorteo-boton-pulso inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-b from-[#f0304e] to-[#8f0b20] px-14 py-5 font-condensed text-[20px] font-extrabold uppercase tracking-wide text-white shadow-[0_16px_38px_-8px_rgba(200,16,46,0.65)] ring-1 ring-white/10 transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_46px_-8px_rgba(200,16,46,0.8)] active:translate-y-0 active:scale-[0.98] disabled:animate-none disabled:cursor-not-allowed disabled:opacity-40"
+                  className="animate-sorteo-boton-pulso inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-b from-[#f3c94d] to-[#c8900a] px-14 py-5 font-condensed text-[20px] font-extrabold uppercase tracking-wide text-[#2b1e00] shadow-[0_16px_38px_-8px_rgba(212,160,23,0.65)] ring-1 ring-white/10 transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_46px_-8px_rgba(212,160,23,0.8)] active:translate-y-0 active:scale-[0.98] disabled:animate-none disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <Sparkles size={19} strokeWidth={2.5} />
                   Comenzar sorteo
@@ -389,7 +389,7 @@ export function SorteoPublico() {
       {fase === "ganador" && ganador && (
         <div
           className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden px-6 animate-fade-in"
-          style={{ background: "radial-gradient(140% 100% at 50% 30%, #3d0712 0%, #1a0509 45%, #060305 85%)" }}
+          style={{ background: "radial-gradient(140% 100% at 50% 30%, #241a08 0%, #110b04 45%, #050403 85%)" }}
         >
           <div
             className="pointer-events-none absolute animate-sorteo-rotar"
