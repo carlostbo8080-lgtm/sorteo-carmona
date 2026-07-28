@@ -342,7 +342,7 @@ export function SorteoPublico() {
           style={{ animationDelay: "200ms" }}
         >
           <div className="relative flex items-center justify-center">
-            <div className="pointer-events-none absolute -inset-3 rounded-[30px] border border-[#D4A017]/20 sm:-inset-4" />
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-70 blur-2xl" style={{ background: "radial-gradient(circle, rgba(212,160,23,0.35), transparent 70%)" }} />
             <TamborSorteo
               segmentos={segmentosParaMostrar}
               indiceGanador={indiceGanador}

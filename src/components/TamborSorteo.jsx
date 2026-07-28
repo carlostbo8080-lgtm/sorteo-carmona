@@ -1,119 +1,77 @@
 import { useEffect, useRef, useState } from "react";
 
-const FILAS_VISIBLES = 7;
-const CENTRO = Math.floor(FILAS_VISIBLES / 2); // fila 3 (0-indexada) = el centro
-const LONGITUD_TIRA = 270; // pasadas fijas, sin importar cuántos participantes haya
-const EXTRA_TRAS = CENTRO; // relleno visual después del ganador
+const SEGMENTOS_RUEDA = 24;
+const COLOR_A = "#d4a017";
+const COLOR_B = "#171614";
 
 /**
- * Tambor de nombres vertical (tómbola electrónica). Recibe el índice
- * ganador ya decidido por el algoritmo de selección — esta animación
- * únicamente lo representa visualmente, nunca decide nada.
+ * Rueda circular tipo bingo. Recibe el índice ganador ya decidido por el
+ * algoritmo de selección — esta animación únicamente lo representa
+ * visualmente, nunca decide nada. El nombre del ganador se revela en la
+ * pantalla completa de resultado (no en la rueda), porque con miles de
+ * participantes no entrarían como texto legible en los gajos.
  */
 export function TamborSorteo({ segmentos, indiceGanador, girando, duracionMs, onFinish }) {
-  const [rebote, setRebote] = useState(false);
-  const [asentado, setAsentado] = useState(false);
-  const [alturaFila, setAlturaFila] = useState(66);
+  const [rotacion, setRotacion] = useState(0);
   const finTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    setAlturaFila(window.innerWidth < 480 ? 52 : 66);
-  }, []);
+  const vueltaRef = useRef(0);
 
   useEffect(() => {
     clearTimeout(finTimeoutRef.current);
     if (!girando) return undefined;
 
-    // Recién empieza a girar: el nombre ganador todavía no se distingue
-    // visualmente de los demás — eso solo pasa cuando se frena de verdad.
-    setAsentado(false);
+    const anguloSegmento = 360 / SEGMENTOS_RUEDA;
+    const posicionGanadora = indiceGanador % SEGMENTOS_RUEDA;
+    vueltaRef.current += 1;
+    const vueltasCompletas = 7 + (vueltaRef.current % 3);
+    const anguloFinal = vueltasCompletas * 360 + (360 - posicionGanadora * anguloSegmento);
+    setRotacion(anguloFinal);
 
     finTimeoutRef.current = setTimeout(() => {
-      setAsentado(true);
-      setRebote(true);
       onFinish?.();
-      setTimeout(() => setRebote(false), 700);
     }, duracionMs);
     return () => clearTimeout(finTimeoutRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [girando, indiceGanador]);
 
   const n = segmentos.length;
-
-  let filas = [];
-  if (n > 0 && girando) {
-    for (let i = 0; i < LONGITUD_TIRA; i++) {
-      const idx = (((indiceGanador - (LONGITUD_TIRA - 1 - i)) % n) + n) % n;
-      filas.push(segmentos[idx]);
-    }
-    for (let i = 0; i < EXTRA_TRAS; i++) {
-      const idx = (indiceGanador + 1 + i) % n;
-      filas.push(segmentos[idx]);
-    }
-  } else {
-    filas = segmentos.slice(0, FILAS_VISIBLES);
-  }
-
-  const translateYFinal = girando ? (CENTRO - (LONGITUD_TIRA - 1)) * alturaFila : 0;
+  const anguloSegmento = 360 / SEGMENTOS_RUEDA;
+  const conic = Array.from({ length: SEGMENTOS_RUEDA }, (_, i) => {
+    const color = i % 2 === 0 ? COLOR_A : COLOR_B;
+    return `${color} ${i * anguloSegmento}deg ${(i + 1) * anguloSegmento}deg`;
+  }).join(", ");
 
   return (
-    <div
-      className="relative mx-auto w-full max-w-xl overflow-hidden rounded-[26px] border border-[#D4A017]/30 bg-black/55 shadow-[0_30px_70px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.06)]"
-      style={{ height: FILAS_VISIBLES * alturaFila }}
-    >
-      {n === 0 && (
-        <div className="flex h-full items-center justify-center px-6 text-center text-[14px] text-white/35">
-          Todavía no hay participantes registrados.
-        </div>
-      )}
-
-      {/* indicador central fijo */}
-      <div
-        className="pointer-events-none absolute inset-x-0 z-10 border-y border-[#D4A017]/70 bg-[#D4A017]/10"
-        style={{ top: CENTRO * alturaFila, height: alturaFila, boxShadow: "0 0 24px 0 rgba(212,160,23,0.25)" }}
-      >
-        <div className="absolute left-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[9px] border-l-[12px] border-y-transparent border-l-[#D4A017]" />
-        <div className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[9px] border-r-[12px] border-y-transparent border-r-[#D4A017]" />
+    <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
+      {/* puntero fijo */}
+      <div className="pointer-events-none absolute -top-1 left-1/2 z-20 h-0 w-0 -translate-x-1/2">
+        <div className="h-0 w-0 border-x-[13px] border-t-[22px] border-x-transparent border-t-[#f0c352] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
       </div>
 
-      {/* difuminados arriba/abajo */}
+      {/* aro exterior */}
+      <div className="absolute inset-0 rounded-full border-4 border-[#D4A017]/50 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.7),0_0_0_8px_rgba(23,22,20,0.9)]" />
+
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#121214] to-transparent"
-        style={{ height: alturaFila * 1.5 }}
-      />
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#121214] to-transparent"
-        style={{ height: alturaFila * 1.5 }}
+        className="absolute inset-[6px] rounded-full"
+        style={{
+          background: n > 0 ? `conic-gradient(${conic})` : "#26241f",
+          transform: `rotate(${rotacion}deg)`,
+          transition: girando ? `transform ${duracionMs}ms cubic-bezier(0.14, 0.72, 0.12, 1)` : "none",
+          boxShadow: "inset 0 0 30px rgba(0,0,0,0.45)",
+        }}
       />
 
-      <div className={rebote ? "animate-sorteo-rebote" : ""}>
-        <div
-          style={{
-            transform: `translateY(${translateYFinal}px)`,
-            transition: girando ? `transform ${duracionMs}ms cubic-bezier(0.14, 0.72, 0.12, 1)` : "none",
-          }}
-        >
-          {filas.map((p, i) => {
-            const esGanadorFinal = asentado && i === LONGITUD_TIRA - 1;
-            return (
-              <div key={i} className="flex items-center justify-center px-8 text-center" style={{ height: alturaFila }}>
-                <span
-                  className={
-                    esGanadorFinal
-                      ? "font-display uppercase leading-tight tracking-wide text-[#f5d375]"
-                      : "font-condensed font-semibold leading-tight text-white/45"
-                  }
-                  style={{
-                    fontSize: esGanadorFinal ? "clamp(20px, 4.2vw, 30px)" : "clamp(14px, 2.6vw, 18px)",
-                    textShadow: esGanadorFinal ? "0 0 22px rgba(245,211,117,0.55)" : "none",
-                  }}
-                >
-                  {p?.nombre}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+      {/* hub central */}
+      <div className="absolute flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#D4A017] bg-[#171614] shadow-[0_0_24px_rgba(212,160,23,0.45)] sm:h-20 sm:w-20">
+        {n === 0 ? (
+          <span className="px-2 text-center font-condensed text-[9.5px] font-bold uppercase leading-tight text-white/40">
+            Sin participantes
+          </span>
+        ) : (
+          <span className="font-display text-[15px] uppercase tracking-wide text-[#f0c352] sm:text-[17px]">
+            {n.toLocaleString("es-PY")}
+          </span>
+        )}
       </div>
     </div>
   );
