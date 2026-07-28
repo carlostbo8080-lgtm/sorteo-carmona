@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Download, FileSpreadsheet, LogOut, PartyPopper, Search, Trash2, Users, XCircle } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { traducirErrorSupabase } from "../utils/helpers";
-import logo from "../img/logoofi.jpeg";
+import logo from "../img/logocarmona.jpeg";
 
 export function AdminDashboard({ session }) {
   const [registros, setRegistros] = useState([]);
@@ -149,8 +149,8 @@ export function AdminDashboard({ session }) {
       <div className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
-              <img src={logo} alt="Darío Carmona" className="h-full w-full rounded-full object-contain" />
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
+              <img src={logo} alt="Darío Carmona" className="h-full w-full rounded-full object-cover" />
             </div>
             <div>
               <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">REGISTROS PARA EL SORTEO</div>
