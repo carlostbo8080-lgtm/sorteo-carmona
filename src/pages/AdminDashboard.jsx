@@ -149,7 +149,7 @@ export function AdminDashboard({ session }) {
       <div className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
               <img src={logo} alt="Darío Carmona" className="h-full w-full rounded-full object-contain" />
             </div>
             <div>

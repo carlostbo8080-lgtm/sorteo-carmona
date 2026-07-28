@@ -23,7 +23,7 @@ export function AdminLogin() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
       <div className="w-full max-w-sm animate-fade-in-up rounded-[24px] border border-white/10 bg-zinc-900 p-8 shadow-2xl">
         <div className="mb-6 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white">
             <img src={logo} alt="Darío Carmona" className="h-full w-full rounded-full object-contain" />
           </div>
           <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
