@@ -70,24 +70,24 @@ export function FormularioPublico() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #ffffff 0%, #faf7f2 55%, #f5efe5 100%)" }}>
+    <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #ffffff 0%, #fffbeb 55%, #fef8dc 100%)" }}>
       {/* ── HERO ─────────────────────────────────────────────── */}
       <div className="relative overflow-hidden px-6 pb-20 pt-14 sm:pb-24 sm:pt-16">
         <div
           className="pointer-events-none absolute"
-          style={{ top: -100, right: -80, width: 340, height: 340, borderRadius: 9999, background: "radial-gradient(circle, rgba(138,123,108,0.16), transparent 70%)" }}
+          style={{ top: -100, right: -80, width: 340, height: 340, borderRadius: 9999, background: "radial-gradient(circle, rgba(212,160,23,0.16), transparent 70%)" }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ bottom: -110, left: "6%", width: 300, height: 300, borderRadius: 9999, background: "radial-gradient(circle, rgba(138,123,108,0.1), transparent 70%)" }}
+          style={{ bottom: -110, left: "6%", width: 300, height: 300, borderRadius: 9999, background: "radial-gradient(circle, rgba(212,160,23,0.1), transparent 70%)" }}
         />
         <div
           className="pointer-events-none absolute"
-          style={{ top: "20%", left: "-8%", width: 220, height: 220, borderRadius: 9999, background: "radial-gradient(circle, rgba(138,123,108,0.08), transparent 70%)" }}
+          style={{ top: "20%", left: "-8%", width: 220, height: 220, borderRadius: 9999, background: "radial-gradient(circle, rgba(212,160,23,0.08), transparent 70%)" }}
         />
 
         <div className="relative mx-auto flex max-w-md flex-col items-center text-center">
-          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_28px_rgba(138,123,108,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
+          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_28px_rgba(212,160,23,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
             <img src={logo} alt="Darío Carmona — Concejal 2026" className="h-full w-full rounded-full object-cover" />
           </div>
           <div
@@ -113,7 +113,7 @@ export function FormularioPublico() {
           </h1>
           <div
             className="mx-auto mt-4 h-[3px] w-10 animate-fade-in-up"
-            style={{ borderRadius: 2, background: "linear-gradient(90deg, #8a7b6c, #b8a894)", animationDelay: "160ms" }}
+            style={{ borderRadius: 2, background: "linear-gradient(90deg, #d4a017, #f3d250)", animationDelay: "160ms" }}
           />
         </div>
       </div>
@@ -121,7 +121,7 @@ export function FormularioPublico() {
       {/* ── TARJETA DEL FORMULARIO ───────────────────────────── */}
       <div className="relative mx-auto -mt-10 max-w-md px-4 pb-16 sm:-mt-12">
         <div
-          className="animate-fade-in-up rounded-[24px] border border-ciudad/10 bg-white/90 p-6 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_28px_54px_-20px_rgba(138,123,108,0.28)] backdrop-blur-sm sm:p-8"
+          className="animate-fade-in-up rounded-[24px] border border-ciudad/10 bg-white/90 p-6 shadow-[0_1px_2px_rgba(0,0,0,0.03),0_28px_54px_-20px_rgba(212,160,23,0.28)] backdrop-blur-sm sm:p-8"
           style={{ animationDelay: "260ms" }}
         >
           {enviado ? (
@@ -211,7 +211,7 @@ export function FormularioPublico() {
                 type="submit"
                 disabled={enviando}
                 className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-4 font-condensed text-[15px] font-extrabold uppercase tracking-wide text-white shadow-ciudad transition-all duration-200 hover:-translate-y-px hover:shadow-ciudad-lg active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
-                style={{ background: "linear-gradient(135deg, #a3927e 0%, #6b5d4f 100%)" }}
+                style={{ background: "linear-gradient(135deg, #e8c23a 0%, #b38f00 100%)" }}
               >
                 {enviando ? (
                   <>

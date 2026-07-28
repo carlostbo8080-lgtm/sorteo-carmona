@@ -12,10 +12,10 @@ export default {
         },
         gold: "#D4A017",
         ciudad: {
-          DEFAULT: "#8a7b6c",
-          dark: "#6b5d4f",
-          deep: "#4a4038",
-          light: "#f5f1ea",
+          DEFAULT: "#d4a017",
+          dark: "#a97f0e",
+          deep: "#7d5f0a",
+          light: "#fdf6d8",
         },
       },
       fontFamily: {
@@ -26,8 +26,8 @@ export default {
       boxShadow: {
         brand: "0 4px 14px rgba(200,16,46,0.25)",
         "brand-lg": "0 8px 28px rgba(200,16,46,0.38)",
-        ciudad: "0 4px 14px rgba(138,123,108,0.25)",
-        "ciudad-lg": "0 8px 28px rgba(138,123,108,0.38)",
+        ciudad: "0 4px 14px rgba(212,160,23,0.25)",
+        "ciudad-lg": "0 8px 28px rgba(212,160,23,0.38)",
       },
     },
   },
