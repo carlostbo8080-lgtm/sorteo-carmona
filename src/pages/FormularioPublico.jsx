@@ -105,7 +105,7 @@ export function FormularioPublico() {
           </div>
           <h1
             className="font-display leading-[0.95] text-zinc-900 animate-fade-in-up"
-            style={{ fontSize: "clamp(40px, 9vw, 56px)", letterSpacing: "0.01em", animationDelay: "110ms" }}
+            style={{ fontSize: "clamp(30px, 7vw, 42px)", letterSpacing: "0.01em", animationDelay: "110ms" }}
           >
             Completá el formulario
             <br />
