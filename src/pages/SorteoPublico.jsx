@@ -8,7 +8,7 @@ import { barajarSeguro, duracionGiroMs, enteroSeguro } from "../utils/ruleta";
 import { useAdminSession } from "../hooks/useAdminSession";
 import { TamborSorteo } from "../components/TamborSorteo";
 import { ParticulasFlotantes } from "../components/ParticulasFlotantes";
-import logo from "../img/logocarmona.png";
+import logo from "../img/logocarmona.jpeg";
 
 const METODO_SELECCION = "csprng-fisher-yates-web-crypto";
 const TAMANO_PAGINA = 1000; // Supabase limita cada respuesta a 1000 filas; hay que paginar

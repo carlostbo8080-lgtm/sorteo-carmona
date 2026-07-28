@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Download, FileSpreadsheet, LogOut, PartyPopper, Search, Trash2, Users, XCircle } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { traducirErrorSupabase } from "../utils/helpers";
-import logo from "../img/logoofi.png";
+import logo from "../img/logoofi.jpeg";
 
 export function AdminDashboard({ session }) {
   const [registros, setRegistros] = useState([]);
