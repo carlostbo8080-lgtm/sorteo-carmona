@@ -1,5 +1,5 @@
 -- ════════════════════════════════════════════════════════════
--- Módulo de Sorteo — Registro David Dvdburg
+-- Módulo de Sorteo — Registro Darío Carmona
 -- Esquema ADITIVO: no modifica la tabla `registros` ni sus
 -- políticas. Corré este script una sola vez en el mismo
 -- proyecto de Supabase (SQL Editor > New query), después de
@@ -9,7 +9,7 @@
 -- ─── TABLA: sorteo_config (fila única con el nombre del evento) ──
 CREATE TABLE IF NOT EXISTS sorteo_config (
   id            SMALLINT     PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-  nombre_evento TEXT         NOT NULL DEFAULT 'Gran Sorteo - David Dvdburg',
+  nombre_evento TEXT         NOT NULL DEFAULT 'Gran Sorteo - Darío Carmona',
   updated_at    TIMESTAMPTZ  NOT NULL DEFAULT now()
 );
 
@@ -73,7 +73,7 @@ CREATE POLICY "sorteo_ganadores_delete_publico" ON sorteo_ganadores
 -- de lectura a `registros`.
 --
 -- ACTUALIZADO en schema_padron.sql: filtra por `apto_sorteo = true`
--- (solo cuenta a quienes están en el padrón electoral de Tobatí).
+-- (solo cuenta a quienes están en el padrón electoral de Presidente Franco).
 -- La definición de abajo queda como referencia histórica; la vista
 -- real en la base ya tiene el filtro aplicado.
 CREATE OR REPLACE VIEW sorteo_participantes_conteo AS

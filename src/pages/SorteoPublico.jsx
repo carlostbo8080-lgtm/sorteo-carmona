@@ -34,7 +34,7 @@ async function cargarTodosLosParticipantes() {
 export function SorteoPublico() {
   const { session } = useAdminSession();
   const [cargando, setCargando] = useState(true);
-  const [nombreEvento, setNombreEvento] = useState("Gran Sorteo - David Dvdburg");
+  const [nombreEvento, setNombreEvento] = useState("Gran Sorteo - Darío Carmona");
   const [total, setTotal] = useState(0);
   const [fase, setFase] = useState("idle"); // idle | girando | ganador
   const [ganador, setGanador] = useState(null);
@@ -289,7 +289,7 @@ export function SorteoPublico() {
             style={{ background: "radial-gradient(circle, rgba(212,160,23,0.5), transparent 70%)" }}
           />
           <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white/95 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.55)] ring-1 ring-white/20 animate-fade-in-up sm:h-[72px] sm:w-[72px]">
-            <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
+            <img src={logo} alt="Darío Carmona" className="h-full w-full object-contain" />
           </div>
         </div>
         <div

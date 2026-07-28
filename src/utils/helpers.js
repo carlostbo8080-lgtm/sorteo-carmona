@@ -8,15 +8,15 @@ export const telefonoValido = (v) => {
 };
 
 export const BARRIOS_POR_CATEGORIA = {
-  "Barrios Urbanos": [
-    "San Miguel", "San Antonio", "San Francisco", "San José", "Virgen de Fátima",
-    "San Roque", "Santa Teresita", "Virgen del Rosario", "San Pedro", "Santa Lucía",
-    "San Blas", "Villa Artesanal", "Villa Jazmín", "María Auxiliadora", "Juan Pablo II",
-  ],
-  "Compañías": [
-    "21 de Julio", "Ensenada", "Santa Rosa", "Aparypy", "Villa de Mercedes",
-    "Costa Alegre", "Loma Verde", "Mompox", "Rosado", "Potrero (Zona A)",
-    "Potrero (Zona B)", "Jhuybaty", "Isla Florida", "Isla Guazú", "Asentamiento Kuña Aty",
+  "Barrios y Compañías": [
+    "Santa Clara", "San José Obrero", "San Juan", "San Antonio", "San Rafael",
+    "Las Mercedes", "San Roque", "San Damián", "Santa Rosa", "San Sebastián",
+    "San Francisco", "San Isidro", "Sagrado Corazón de Jesús", "San Miguel",
+    "San Lorenzo", "San Jorge", "Santo Domingo", "San Pablo",
+    "Fray Luis de Bolaños", "Fátima 1", "Santo Tomás", "Area 5", "CONAVI",
+    "Centro", "María Auxiliadora", "Caacupe-mí", "Kilómetro 7 Monday", "Tres Fronteras", "San Miguel vila baja",
+    "Kilómetro 8 Monday", "Kilómetro 9 Monday", "Kilómetro 10 Monday",
+    "Colonia Alfredo Pla", "Península", "Puerto Bertoni", "Saltos del Monday",
   ],
 };
 

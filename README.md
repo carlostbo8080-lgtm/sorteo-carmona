@@ -1,6 +1,6 @@
-# Registro David Dvdburg
+# Sorteo Carmona
 
-Formulario público de captación de datos + panel administrador. Proyecto **totalmente independiente** del sistema de gestión electoral — no comparte base de datos, código en producción ni despliegue con él.
+Formulario público de captación de datos + panel administrador + sorteo, para la campaña de **Darío Carmona — Concejal 2026** en Presidente Franco. Proyecto **totalmente independiente** de otras campañas — no comparte base de datos, código en producción ni despliegue con ellas.
 
 ## Puesta en marcha (una sola vez)
 
@@ -39,10 +39,10 @@ npm run build
 
 Subí la carpeta con Vercel (u otro hosting de sitios estáticos). Si usás Vercel, configurá las mismas variables de entorno (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) en el proyecto. El archivo `vercel.json` ya incluye la regla necesaria para que `/admin` funcione al recargar la página.
 
-Una vez desplegado, el **link público a compartir con la gente** es la URL raíz (ej. `https://registro-david-dvdburg.vercel.app/`). El link `/admin` es privado y no se comparte.
+Una vez desplegado, el **link público a compartir con la gente** es la URL raíz (ej. `https://sorteo-carmona.vercel.app/`). El link `/admin` es privado y no se comparte.
 
 ## Cómo funciona
 
 - **Formulario público** (`/`): cualquiera puede completarlo y enviarlo. No requiere login. La base de datos rechaza automáticamente cédulas duplicadas.
-- **Panel admin** (`/admin`): pide email + contraseña (el usuario creado en el paso 1.4). Ahí se pueden ver, buscar, filtrar y exportar todos los registros a Excel (`Registro_David_Dvdburg.xlsx`).
+- **Panel admin** (`/admin`): pide email + contraseña (el usuario creado en el paso 1.4). Ahí se pueden ver, buscar, filtrar y exportar todos los registros a Excel (`Registro_Dario_Carmona.xlsx`).
 - La seguridad está garantizada por Row Level Security de Supabase: el rol público (`anon`) solo puede **insertar**, nunca leer; solo un usuario autenticado puede leer los datos.

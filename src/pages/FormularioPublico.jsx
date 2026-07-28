@@ -88,7 +88,7 @@ export function FormularioPublico() {
 
         <div className="relative mx-auto flex max-w-md flex-col items-center text-center">
           <div className="mb-5 flex h-28 items-center justify-center overflow-hidden rounded-2xl bg-white p-1 shadow-[0_10px_28px_rgba(25,135,84,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
-            <img src={logo} alt="David Dvdburg — Concejal 2026" className="h-full w-auto rounded-xl object-contain" />
+            <img src={logo} alt="Darío Carmona — Concejal 2026" className="h-full w-auto rounded-xl object-contain" />
           </div>
           <div
             className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-ciudad-light px-3 py-1 font-condensed text-[11px] font-bold uppercase tracking-[0.14em] text-ciudad-deep ring-1 ring-ciudad/20 animate-fade-in-up"
@@ -101,7 +101,7 @@ export function FormularioPublico() {
             className="mb-2 font-condensed text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-400 animate-fade-in-up"
             style={{ animationDelay: "60ms" }}
           >
-            David Dvdburg — Concejal 2026
+            Darío Carmona — Concejal 2026
           </div>
           <h1
             className="font-display leading-[0.95] text-zinc-900 animate-fade-in-up"
@@ -119,7 +119,7 @@ export function FormularioPublico() {
             className="mt-4 max-w-xs text-[14px] leading-relaxed text-zinc-500 animate-fade-in-up"
             style={{ animationDelay: "200ms" }}
           >
-            Dejanos tus datos, entrá al sorteo y sé parte del cambio que estamos construyendo juntos en Tobatí.
+            Dejanos tus datos, entrá al sorteo y sé parte del cambio que estamos construyendo juntos en Presidente Franco.
           </p>
         </div>
       </div>

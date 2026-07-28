@@ -1,5 +1,5 @@
 -- ════════════════════════════════════════════════════════════
--- Registro de Contactos — David Dvdburg
+-- Registro de Contactos — Darío Carmona
 -- Proyecto de Supabase INDEPENDIENTE. Correr este script completo
 -- en el SQL Editor de un proyecto de Supabase nuevo (Project > SQL
 -- Editor > New query), una sola vez.

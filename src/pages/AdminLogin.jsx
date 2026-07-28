@@ -24,10 +24,10 @@ export function AdminLogin() {
       <div className="w-full max-w-sm animate-fade-in-up rounded-[24px] border border-white/10 bg-zinc-900 p-8 shadow-2xl">
         <div className="mb-6 flex flex-col items-center text-center">
           <div className="mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white p-2">
-            <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
+            <img src={logo} alt="Darío Carmona" className="h-full w-full object-contain" />
           </div>
           <div className="font-condensed text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
-            David Dvdburg — Concejal 2026
+            Darío Carmona — Concejal 2026
           </div>
           <h1 className="mt-1 font-display text-[26px] uppercase tracking-[0.02em] text-white">Panel Administrador</h1>
           <p className="mt-1 text-[13px] text-zinc-400">Acceso exclusivo para administrar los registros</p>

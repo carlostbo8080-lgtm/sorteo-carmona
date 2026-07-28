@@ -72,7 +72,7 @@ export function AdminDashboard({ session }) {
       const [{ default: ExcelJS }, { saveAs }] = await Promise.all([import("exceljs"), import("file-saver")]);
 
       const workbook = new ExcelJS.Workbook();
-      workbook.creator = "Registro David Dvdburg";
+      workbook.creator = "Registro Darío Carmona";
       workbook.created = new Date();
 
       const ROJO = "FFC8102E";
@@ -94,7 +94,7 @@ export function AdminDashboard({ session }) {
 
       sheet.mergeCells("A1:F1");
       sheet.getRow(1).height = 32;
-      sheet.getCell("A1").value = "REGISTROS PARA EL SORTEO - DAVID DVDBURG";
+      sheet.getCell("A1").value = "REGISTROS PARA EL SORTEO - DARÍO CARMONA";
       sheet.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: ROJO } };
       sheet.getCell("A1").font = { bold: true, size: 15, color: { argb: BLANCO } };
       sheet.getCell("A1").alignment = { vertical: "middle", horizontal: "left", indent: 1 };
@@ -135,7 +135,7 @@ export function AdminDashboard({ session }) {
 
       const buffer = await workbook.xlsx.writeBuffer();
       const tipoExcel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      const filename = "Registro_David_Dvdburg.xlsx";
+      const filename = "Registro_Dario_Carmona.xlsx";
       saveAs(new Blob([buffer], { type: tipoExcel }), filename);
     } catch {
       setError("No se pudo generar el Excel. Intentá nuevamente.");
@@ -150,11 +150,11 @@ export function AdminDashboard({ session }) {
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl bg-zinc-50 p-1.5">
-              <img src={logo} alt="David Dvdburg" className="h-full w-full object-contain" />
+              <img src={logo} alt="Darío Carmona" className="h-full w-full object-contain" />
             </div>
             <div>
               <div className="font-display text-[18px] uppercase leading-none tracking-[0.02em] text-brand">REGISTROS PARA EL SORTEO</div>
-              <div className="font-condensed text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-400">David Dvdburg — Concejal 2026</div>
+              <div className="font-condensed text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-400">Darío Carmona — Concejal 2026</div>
             </div>
           </div>
           <div className="flex items-center gap-2">

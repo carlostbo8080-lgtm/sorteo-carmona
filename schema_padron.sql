@@ -1,16 +1,16 @@
 -- ════════════════════════════════════════════════════════════
--- Validación contra el Padrón Electoral de Tobatí
+-- Validación contra el Padrón Electoral de Presidente Franco
 -- Esquema ADITIVO: no modifica el formulario ni bloquea el envío.
 -- Corré este script una sola vez (SQL Editor > New query), después
 -- de haber corrido schema.sql y schema_sorteo.sql.
 -- ════════════════════════════════════════════════════════════
 
--- ─── TABLA: padron_tobati (importada una sola vez desde Excel) ───
+-- ─── TABLA: padron_presidente_franco (importada una sola vez desde CSV) ───
 -- Completamente bloqueada por RLS: ni "anon" ni "authenticated"
 -- pueden leerla directamente. Solo se usa desde el trigger de
 -- abajo (SECURITY DEFINER) y desde la conexión directa que hace
 -- la importación. Así nunca se expone el padrón completo.
-CREATE TABLE IF NOT EXISTS padron_tobati (
+CREATE TABLE IF NOT EXISTS padron_presidente_franco (
   id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   cedula     TEXT        NOT NULL,
   nombre     TEXT,
@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS padron_tobati (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS padron_tobati_cedula_key ON padron_tobati (cedula);
+CREATE UNIQUE INDEX IF NOT EXISTS padron_presidente_franco_cedula_key ON padron_presidente_franco (cedula);
 
-ALTER TABLE padron_tobati ENABLE ROW LEVEL SECURITY;
+ALTER TABLE padron_presidente_franco ENABLE ROW LEVEL SECURITY;
 -- (sin políticas a propósito: nadie puede leerla vía API pública)
 
 -- ─── COLUMNA: registros.apto_sorteo ────────────────────────────
@@ -29,7 +29,7 @@ ALTER TABLE registros ADD COLUMN IF NOT EXISTS apto_sorteo BOOLEAN NOT NULL DEFA
 
 -- ─── TRIGGER: validación automática contra el padrón ──────────
 -- Corre en cada INSERT sobre `registros`. SECURITY DEFINER permite
--- que consulte `padron_tobati` (bloqueada para anon) sin necesidad
+-- que consulte `padron_presidente_franco` (bloqueada para anon) sin necesidad
 -- de darle ningún permiso extra al formulario público. Nunca lanza
 -- error ni bloquea el insert — solo escribe true/false.
 CREATE OR REPLACE FUNCTION calcular_apto_sorteo()
@@ -40,7 +40,7 @@ LANGUAGE plpgsql
 AS $fn$
 BEGIN
   NEW.apto_sorteo := EXISTS (
-    SELECT 1 FROM padron_tobati WHERE cedula = NEW.cedula_limpia
+    SELECT 1 FROM padron_presidente_franco WHERE cedula = NEW.cedula_limpia
   );
   RETURN NEW;
 END;
@@ -66,7 +66,7 @@ CREATE OR REPLACE VIEW sorteo_participantes_publico AS
 -- padrón, corré esto una vez para poner al día los registros viejos:
 --
 -- UPDATE registros SET apto_sorteo = EXISTS (
---   SELECT 1 FROM padron_tobati WHERE cedula = registros.cedula_limpia
+--   SELECT 1 FROM padron_presidente_franco WHERE cedula = registros.cedula_limpia
 -- );
 
 -- ─── NOTA FINAL ─────────────────────────────────────────────────
