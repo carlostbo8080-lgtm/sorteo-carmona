@@ -87,7 +87,7 @@ export function FormularioPublico() {
         />
 
         <div className="relative mx-auto flex max-w-md flex-col items-center text-center">
-          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-[0_10px_28px_rgba(138,123,108,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
+          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_28px_rgba(138,123,108,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
             <img src={logo} alt="Darío Carmona — Concejal 2026" className="h-full w-full rounded-full object-cover" />
           </div>
           <div
