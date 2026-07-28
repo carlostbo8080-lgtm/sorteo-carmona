@@ -336,20 +336,23 @@ export function SorteoPublico() {
       </div>
 
       {/* ── tarjeta central: tambor de nombres + botón ──────────────── */}
-      <div className="relative z-10 mt-7 w-full max-w-3xl flex-1">
+      <div className="relative z-10 mt-10 w-full max-w-3xl flex-1">
         <div
-          className="pointer-events-none absolute -inset-px -z-10 rounded-[34px] opacity-60 blur-md"
-          style={{ background: "linear-gradient(135deg, rgba(212,160,23,0.5), rgba(224,150,40,0.15) 45%, rgba(212,160,23,0.35))" }}
-        />
+          className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-[#D4A017]/50 bg-[#1b1a17] px-5 py-1.5 font-condensed text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#f0c352] shadow-[0_4px_16px_rgba(0,0,0,0.5)] animate-fade-in-up"
+        >
+          Tómbola en vivo
+        </div>
         <div
-          className="relative flex w-full flex-col items-center justify-center rounded-[32px] border border-white/10 bg-white/[0.045] px-4 py-8 shadow-[0_35px_90px_-20px_rgba(0,0,0,0.7)] backdrop-blur-md animate-fade-in-up sm:px-10 sm:py-10"
+          className="relative flex w-full flex-col items-center justify-center rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 pb-8 pt-10 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:pb-10 sm:pt-12"
           style={{ animationDelay: "200ms" }}
         >
+          <span className="pointer-events-none absolute left-3 top-3 h-5 w-5 rounded-tl-md border-l-2 border-t-2 border-[#D4A017]/50 sm:left-4 sm:top-4" />
+          <span className="pointer-events-none absolute right-3 top-3 h-5 w-5 rounded-tr-md border-r-2 border-t-2 border-[#D4A017]/50 sm:right-4 sm:top-4" />
+          <span className="pointer-events-none absolute bottom-3 left-3 h-5 w-5 rounded-bl-md border-b-2 border-l-2 border-[#D4A017]/50 sm:bottom-4 sm:left-4" />
+          <span className="pointer-events-none absolute bottom-3 right-3 h-5 w-5 rounded-br-md border-b-2 border-r-2 border-[#D4A017]/50 sm:bottom-4 sm:right-4" />
+
           <div className="relative flex items-center justify-center">
-            <div
-              className="pointer-events-none absolute -inset-6 -z-10 animate-sorteo-rotar rounded-full opacity-70 blur-2xl sm:-inset-10"
-              style={{ background: "conic-gradient(from 0deg, rgba(212,160,23,0.35), transparent 30%, rgba(224,150,40,0.3), transparent 70%, rgba(212,160,23,0.35))" }}
-            />
+            <div className="pointer-events-none absolute -inset-3 rounded-[30px] border border-[#D4A017]/20 sm:-inset-4" />
             <TamborSorteo
               segmentos={segmentosParaMostrar}
               indiceGanador={indiceGanador}
@@ -365,9 +368,11 @@ export function SorteoPublico() {
                 <button
                   onClick={iniciarGiro}
                   disabled={segmentos.length === 0}
-                  className="animate-sorteo-boton-pulso inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-b from-[#f3c94d] to-[#c8900a] px-14 py-5 font-condensed text-[20px] font-extrabold uppercase tracking-wide text-[#2b1e00] shadow-[0_16px_38px_-8px_rgba(212,160,23,0.65)] ring-1 ring-white/10 transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_46px_-8px_rgba(212,160,23,0.8)] active:translate-y-0 active:scale-[0.98] disabled:animate-none disabled:cursor-not-allowed disabled:opacity-40"
+                  className="animate-sorteo-boton-pulso inline-flex items-center justify-center gap-3 rounded-full bg-[#d4a017] py-4 pl-4 pr-9 font-condensed text-[18px] font-extrabold uppercase tracking-wide text-[#231a00] shadow-[0_14px_32px_-10px_rgba(212,160,23,0.6)] transition-all hover:-translate-y-0.5 hover:bg-[#e2b32a] active:translate-y-0 active:scale-[0.98] disabled:animate-none disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  <Sparkles size={19} strokeWidth={2.5} />
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#231a00]/10">
+                    <Sparkles size={18} strokeWidth={2.5} />
+                  </span>
                   Comenzar sorteo
                 </button>
                 {segmentos.length === 0 && (
