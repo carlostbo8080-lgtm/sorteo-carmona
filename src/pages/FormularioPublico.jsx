@@ -115,12 +115,6 @@ export function FormularioPublico() {
             className="mx-auto mt-4 h-[3px] w-10 animate-fade-in-up"
             style={{ borderRadius: 2, background: "linear-gradient(90deg, #8a7b6c, #b8a894)", animationDelay: "160ms" }}
           />
-          <p
-            className="mt-4 max-w-xs text-[14px] leading-relaxed text-zinc-500 animate-fade-in-up"
-            style={{ animationDelay: "200ms" }}
-          >
-            Dejanos tus datos, entrá al sorteo y sé parte del cambio que estamos construyendo juntos en Presidente Franco.
-          </p>
         </div>
       </div>
 
