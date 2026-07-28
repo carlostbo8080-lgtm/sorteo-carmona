@@ -78,11 +78,11 @@ export function TamborSorteo({ segmentos, indiceGanador, girando, duracionMs, on
 
       {/* difuminados arriba/abajo */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#100b04] to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#121214] to-transparent"
         style={{ height: alturaFila * 1.5 }}
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#100b04] to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#121214] to-transparent"
         style={{ height: alturaFila * 1.5 }}
       />
 

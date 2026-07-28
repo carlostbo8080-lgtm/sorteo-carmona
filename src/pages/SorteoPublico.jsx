@@ -240,7 +240,7 @@ export function SorteoPublico() {
 
   if (cargando) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0703]">
+      <div className="flex min-h-screen items-center justify-center bg-[#121214]">
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/10 border-t-[#D4A017]" />
       </div>
     );
@@ -251,7 +251,7 @@ export function SorteoPublico() {
   return (
     <div
       className="relative flex min-h-screen flex-col items-center overflow-hidden px-5 py-8 sm:px-8 sm:py-10"
-      style={{ background: "radial-gradient(140% 100% at 50% -10%, #241a08 0%, #110b04 42%, #050403 78%)" }}
+      style={{ background: "radial-gradient(140% 100% at 50% -10%, #2b2b2d 0%, #18181a 42%, #0a0a0b 78%)" }}
     >
       <div
         className="pointer-events-none absolute animate-[sorteo-glow_7s_ease-in-out_infinite] animate-sorteo-respirar"
@@ -389,7 +389,7 @@ export function SorteoPublico() {
       {fase === "ganador" && ganador && (
         <div
           className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden px-6 animate-fade-in"
-          style={{ background: "radial-gradient(140% 100% at 50% 30%, #241a08 0%, #110b04 45%, #050403 85%)" }}
+          style={{ background: "radial-gradient(140% 100% at 50% 30%, #2b2b2d 0%, #18181a 45%, #0a0a0b 85%)" }}
         >
           <div
             className="pointer-events-none absolute animate-sorteo-rotar"
