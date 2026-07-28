@@ -8,7 +8,7 @@ export const telefonoValido = (v) => {
 };
 
 export const BARRIOS_POR_CATEGORIA = {
-  "Barrios y Compañías": [
+  "Barrios": [
     "Santa Clara", "San José Obrero", "San Juan", "San Antonio", "San Rafael",
     "Las Mercedes", "San Roque", "San Damián", "Santa Rosa", "San Sebastián",
     "San Francisco", "San Isidro", "Sagrado Corazón de Jesús", "San Miguel",

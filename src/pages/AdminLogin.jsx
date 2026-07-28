@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Loader2, Lock, LogIn, Mail } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { traducirErrorSupabase } from "../utils/helpers";
-import logo from "../img/logocarmona.jpeg";
+import logo from "../img/logocarmona.png";
 
 export function AdminLogin() {
   const [email, setEmail] = useState("");

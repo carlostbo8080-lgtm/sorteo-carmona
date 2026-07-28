@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CheckCircle2, Loader2, MapPin, Phone, Sparkles, Ticket, User, UserCheck } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import { BARRIOS_POR_CATEGORIA, normalizarCedula, normalizarTelefono, telefonoValido, traducirErrorSupabase } from "../utils/helpers";
-import logo from "../img/logocarmona.jpeg";
+import logo from "../img/logocarmona.png";
 
 const FORM_VACIO = { nombre: "", cedula: "", telefono: "", barrio: "", barrioOtro: "" };
 
