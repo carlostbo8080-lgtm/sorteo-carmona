@@ -336,14 +336,9 @@ export function SorteoPublico() {
       </div>
 
       {/* ── tarjeta central: tambor de nombres + botón ──────────────── */}
-      <div className="relative z-10 mt-10 w-full max-w-3xl flex-1">
+      <div className="relative z-10 mt-7 w-full max-w-3xl flex-1">
         <div
-          className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-[#D4A017]/50 bg-[#1b1a17] px-5 py-1.5 font-condensed text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#f0c352] shadow-[0_4px_16px_rgba(0,0,0,0.5)] animate-fade-in-up"
-        >
-          Tómbola en vivo
-        </div>
-        <div
-          className="relative flex w-full flex-col items-center justify-center rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 pb-8 pt-10 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:pb-10 sm:pt-12"
+          className="relative flex w-full flex-col items-center justify-center rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 py-8 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:py-10"
           style={{ animationDelay: "200ms" }}
         >
           <span className="pointer-events-none absolute left-3 top-3 h-5 w-5 rounded-tl-md border-l-2 border-t-2 border-[#D4A017]/50 sm:left-4 sm:top-4" />
