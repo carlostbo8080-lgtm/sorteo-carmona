@@ -288,8 +288,8 @@ export function SorteoPublico() {
             className="pointer-events-none absolute inset-0 -z-10 animate-sorteo-pulso rounded-full blur-xl"
             style={{ background: "radial-gradient(circle, rgba(212,160,23,0.5), transparent 70%)" }}
           />
-          <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white/95 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.55)] ring-1 ring-white/20 animate-fade-in-up sm:h-[72px] sm:w-[72px]">
-            <img src={logo} alt="Darío Carmona" className="h-full w-full object-contain" />
+          <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-white/95 p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.55)] ring-1 ring-white/20 animate-fade-in-up sm:h-[72px] sm:w-[72px]">
+            <img src={logo} alt="Darío Carmona" className="h-full w-full rounded-full object-cover" />
           </div>
         </div>
         <div

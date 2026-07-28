@@ -87,8 +87,8 @@ export function FormularioPublico() {
         />
 
         <div className="relative mx-auto flex max-w-md flex-col items-center text-center">
-          <div className="mb-5 flex h-28 items-center justify-center overflow-hidden rounded-2xl bg-white p-1 shadow-[0_10px_28px_rgba(138,123,108,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
-            <img src={logo} alt="Darío Carmona — Concejal 2026" className="h-full w-auto rounded-xl object-contain" />
+          <div className="mb-5 flex h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-white p-1 shadow-[0_10px_28px_rgba(138,123,108,0.2)] ring-1 ring-ciudad/15 animate-fade-in-up">
+            <img src={logo} alt="Darío Carmona — Concejal 2026" className="h-full w-full rounded-full object-cover" />
           </div>
           <div
             className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-ciudad-light px-3 py-1 font-condensed text-[11px] font-bold uppercase tracking-[0.14em] text-ciudad-deep ring-1 ring-ciudad/20 animate-fade-in-up"
