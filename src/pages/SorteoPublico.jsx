@@ -338,14 +338,9 @@ export function SorteoPublico() {
       {/* ── tarjeta central: tambor de nombres + botón ──────────────── */}
       <div className="relative z-10 mt-7 w-full max-w-3xl flex-1">
         <div
-          className="relative flex w-full flex-col items-center justify-center rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 py-8 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:py-10"
+          className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 pt-8 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:pt-10"
           style={{ animationDelay: "200ms" }}
         >
-          <span className="pointer-events-none absolute left-3 top-3 h-5 w-5 rounded-tl-md border-l-2 border-t-2 border-[#D4A017]/50 sm:left-4 sm:top-4" />
-          <span className="pointer-events-none absolute right-3 top-3 h-5 w-5 rounded-tr-md border-r-2 border-t-2 border-[#D4A017]/50 sm:right-4 sm:top-4" />
-          <span className="pointer-events-none absolute bottom-3 left-3 h-5 w-5 rounded-bl-md border-b-2 border-l-2 border-[#D4A017]/50 sm:bottom-4 sm:left-4" />
-          <span className="pointer-events-none absolute bottom-3 right-3 h-5 w-5 rounded-br-md border-b-2 border-r-2 border-[#D4A017]/50 sm:bottom-4 sm:right-4" />
-
           <div className="relative flex items-center justify-center">
             <div className="pointer-events-none absolute -inset-3 rounded-[30px] border border-[#D4A017]/20 sm:-inset-4" />
             <TamborSorteo
@@ -357,7 +352,14 @@ export function SorteoPublico() {
             />
           </div>
 
-          <div className="mt-9 flex flex-col items-center text-center">
+          {/* ── perforación de ticket ─────────────────────────────── */}
+          <div className="relative my-9 -mx-4 w-[calc(100%+2rem)] flex-shrink-0 sm:-mx-10 sm:w-[calc(100%+5rem)]">
+            <span className="pointer-events-none absolute left-0 top-1/2 z-10 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0b0a09]" />
+            <span className="pointer-events-none absolute right-0 top-1/2 z-10 h-7 w-7 -translate-y-1/2 translate-x-1/2 rounded-full bg-[#0b0a09]" />
+            <div className="border-t-2 border-dashed border-[#D4A017]/30" />
+          </div>
+
+          <div className="flex flex-col items-center pb-8 text-center sm:pb-10">
             {fase === "idle" && (
               <>
                 <button
