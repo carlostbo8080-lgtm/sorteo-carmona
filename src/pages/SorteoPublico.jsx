@@ -341,8 +341,7 @@ export function SorteoPublico() {
           className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-[20px] border border-[#D4A017]/25 bg-[#171614] px-4 pt-8 shadow-[0_30px_70px_-24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] animate-fade-in-up sm:px-10 sm:pt-10"
           style={{ animationDelay: "200ms" }}
         >
-          <div className="relative flex items-center justify-center">
-            <div className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-70 blur-2xl" style={{ background: "radial-gradient(circle, rgba(212,160,23,0.35), transparent 70%)" }} />
+          <div className="relative flex w-full items-center justify-center">
             <TamborSorteo
               segmentos={segmentosParaMostrar}
               indiceGanador={indiceGanador}

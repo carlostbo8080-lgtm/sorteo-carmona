@@ -1,77 +1,159 @@
 import { useEffect, useRef, useState } from "react";
 
-const SEGMENTOS_RUEDA = 24;
-const COLOR_A = "#d4a017";
-const COLOR_B = "#171614";
+const FILAS_VISIBLES = 7;
+const CENTRO = Math.floor(FILAS_VISIBLES / 2); // fila 3 (0-indexada) = el centro
+const LONGITUD_TIRA = 270; // pasadas fijas, sin importar cuántos participantes haya
+const EXTRA_TRAS = CENTRO; // relleno visual después del ganador
+const CANTIDAD_LUCES = 14;
+
+const LUCES = Array.from({ length: CANTIDAD_LUCES }, (_, i) => ({
+  izquierda: (i / (CANTIDAD_LUCES - 1)) * 100,
+  retraso: (i % 4) * 0.25,
+}));
 
 /**
- * Rueda circular tipo bingo. Recibe el índice ganador ya decidido por el
- * algoritmo de selección — esta animación únicamente lo representa
- * visualmente, nunca decide nada. El nombre del ganador se revela en la
- * pantalla completa de resultado (no en la rueda), porque con miles de
- * participantes no entrarían como texto legible en los gajos.
+ * Tambor de nombres vertical estilo tragamonedas de casino: marco metálico
+ * con luces de marquesina, ventana de vidrio y payline dorada. Recibe el
+ * índice ganador ya decidido por el algoritmo de selección — esta
+ * animación únicamente lo representa visualmente, nunca decide nada.
  */
 export function TamborSorteo({ segmentos, indiceGanador, girando, duracionMs, onFinish }) {
-  const [rotacion, setRotacion] = useState(0);
+  const [rebote, setRebote] = useState(false);
+  const [asentado, setAsentado] = useState(false);
+  const [alturaFila, setAlturaFila] = useState(66);
   const finTimeoutRef = useRef(null);
-  const vueltaRef = useRef(0);
+
+  useEffect(() => {
+    setAlturaFila(window.innerWidth < 480 ? 52 : 66);
+  }, []);
 
   useEffect(() => {
     clearTimeout(finTimeoutRef.current);
     if (!girando) return undefined;
 
-    const anguloSegmento = 360 / SEGMENTOS_RUEDA;
-    const posicionGanadora = indiceGanador % SEGMENTOS_RUEDA;
-    vueltaRef.current += 1;
-    const vueltasCompletas = 7 + (vueltaRef.current % 3);
-    const anguloFinal = vueltasCompletas * 360 + (360 - posicionGanadora * anguloSegmento);
-    setRotacion(anguloFinal);
+    // Recién empieza a girar: el nombre ganador todavía no se distingue
+    // visualmente de los demás — eso solo pasa cuando se frena de verdad.
+    setAsentado(false);
 
     finTimeoutRef.current = setTimeout(() => {
+      setAsentado(true);
+      setRebote(true);
       onFinish?.();
+      setTimeout(() => setRebote(false), 700);
     }, duracionMs);
     return () => clearTimeout(finTimeoutRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [girando, indiceGanador]);
 
   const n = segmentos.length;
-  const anguloSegmento = 360 / SEGMENTOS_RUEDA;
-  const conic = Array.from({ length: SEGMENTOS_RUEDA }, (_, i) => {
-    const color = i % 2 === 0 ? COLOR_A : COLOR_B;
-    return `${color} ${i * anguloSegmento}deg ${(i + 1) * anguloSegmento}deg`;
-  }).join(", ");
+
+  let filas = [];
+  if (n > 0 && girando) {
+    for (let i = 0; i < LONGITUD_TIRA; i++) {
+      const idx = (((indiceGanador - (LONGITUD_TIRA - 1 - i)) % n) + n) % n;
+      filas.push(segmentos[idx]);
+    }
+    for (let i = 0; i < EXTRA_TRAS; i++) {
+      const idx = (indiceGanador + 1 + i) % n;
+      filas.push(segmentos[idx]);
+    }
+  } else {
+    filas = segmentos.slice(0, FILAS_VISIBLES);
+  }
+
+  const translateYFinal = girando ? (CENTRO - (LONGITUD_TIRA - 1)) * alturaFila : 0;
 
   return (
-    <div className="relative mx-auto flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
-      {/* puntero fijo */}
-      <div className="pointer-events-none absolute -top-1 left-1/2 z-20 h-0 w-0 -translate-x-1/2">
-        <div className="h-0 w-0 border-x-[13px] border-t-[22px] border-x-transparent border-t-[#f0c352] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
+    <div className="relative w-full max-w-xl rounded-[28px] bg-gradient-to-b from-[#403f3b] via-[#242320] to-[#131211] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] sm:p-4">
+      {/* luces de marquesina */}
+      <div className="pointer-events-none absolute inset-x-4 top-1.5 flex justify-between sm:inset-x-6">
+        {LUCES.map((l, i) => (
+          <span
+            key={`lt-${i}`}
+            className="h-1.5 w-1.5 rounded-full bg-[#f5d375] animate-sorteo-titilar"
+            style={{ animationDelay: `${l.retraso}s`, boxShadow: "0 0 6px 1px rgba(245,211,117,0.7)" }}
+          />
+        ))}
+      </div>
+      <div className="pointer-events-none absolute inset-x-4 bottom-1.5 flex justify-between sm:inset-x-6">
+        {LUCES.map((l, i) => (
+          <span
+            key={`lb-${i}`}
+            className="h-1.5 w-1.5 rounded-full bg-[#f5d375] animate-sorteo-titilar"
+            style={{ animationDelay: `${l.retraso + 0.4}s`, boxShadow: "0 0 6px 1px rgba(245,211,117,0.7)" }}
+          />
+        ))}
       </div>
 
-      {/* aro exterior */}
-      <div className="absolute inset-0 rounded-full border-4 border-[#D4A017]/50 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.7),0_0_0_8px_rgba(23,22,20,0.9)]" />
-
+      {/* ventana de vidrio */}
       <div
-        className="absolute inset-[6px] rounded-full"
-        style={{
-          background: n > 0 ? `conic-gradient(${conic})` : "#26241f",
-          transform: `rotate(${rotacion}deg)`,
-          transition: girando ? `transform ${duracionMs}ms cubic-bezier(0.14, 0.72, 0.12, 1)` : "none",
-          boxShadow: "inset 0 0 30px rgba(0,0,0,0.45)",
-        }}
-      />
-
-      {/* hub central */}
-      <div className="absolute flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#D4A017] bg-[#171614] shadow-[0_0_24px_rgba(212,160,23,0.45)] sm:h-20 sm:w-20">
-        {n === 0 ? (
-          <span className="px-2 text-center font-condensed text-[9.5px] font-bold uppercase leading-tight text-white/40">
-            Sin participantes
-          </span>
-        ) : (
-          <span className="font-display text-[15px] uppercase tracking-wide text-[#f0c352] sm:text-[17px]">
-            {n.toLocaleString("es-PY")}
-          </span>
+        className="relative overflow-hidden rounded-[18px] border-2 border-[#0a0a0b] bg-[#0c0c0d] shadow-[inset_0_10px_28px_rgba(0,0,0,0.75)]"
+        style={{ height: FILAS_VISIBLES * alturaFila }}
+      >
+        {n === 0 && (
+          <div className="flex h-full items-center justify-center px-6 text-center text-[14px] text-white/35">
+            Todavía no hay participantes registrados.
+          </div>
         )}
+
+        {/* brillo diagonal de vidrio */}
+        <div
+          className="pointer-events-none absolute inset-0 z-20 opacity-40"
+          style={{
+            background:
+              "linear-gradient(115deg, rgba(255,255,255,0.1) 0%, transparent 22%, transparent 78%, rgba(255,255,255,0.05) 100%)",
+          }}
+        />
+
+        {/* payline central */}
+        <div
+          className="pointer-events-none absolute inset-x-0 z-10 border-y-2 border-[#D4A017] bg-[#D4A017]/10"
+          style={{ top: CENTRO * alturaFila, height: alturaFila, boxShadow: "0 0 26px 2px rgba(212,160,23,0.4)" }}
+        >
+          <div className="absolute left-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[9px] border-l-[13px] border-y-transparent border-l-[#D4A017]" />
+          <div className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[9px] border-r-[13px] border-y-transparent border-r-[#D4A017]" />
+        </div>
+
+        {/* difuminados arriba/abajo */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-[#0c0c0d] to-transparent"
+          style={{ height: alturaFila * 1.4 }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#0c0c0d] to-transparent"
+          style={{ height: alturaFila * 1.4 }}
+        />
+
+        <div className={rebote ? "animate-sorteo-rebote" : ""}>
+          <div
+            style={{
+              transform: `translateY(${translateYFinal}px)`,
+              transition: girando ? `transform ${duracionMs}ms cubic-bezier(0.14, 0.72, 0.12, 1)` : "none",
+            }}
+          >
+            {filas.map((p, i) => {
+              const esGanadorFinal = asentado && i === LONGITUD_TIRA - 1;
+              return (
+                <div key={i} className="flex items-center justify-center px-8 text-center" style={{ height: alturaFila }}>
+                  <span
+                    className={
+                      esGanadorFinal
+                        ? "font-display uppercase leading-tight tracking-wide text-[#f5d375]"
+                        : "font-condensed font-semibold leading-tight text-white/45"
+                    }
+                    style={{
+                      fontSize: esGanadorFinal ? "clamp(20px, 4.2vw, 30px)" : "clamp(14px, 2.6vw, 18px)",
+                      textShadow: esGanadorFinal ? "0 0 22px rgba(245,211,117,0.55)" : "none",
+                      filter: girando && !esGanadorFinal ? "blur(1.1px)" : "none",
+                    }}
+                  >
+                    {p?.nombre}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
