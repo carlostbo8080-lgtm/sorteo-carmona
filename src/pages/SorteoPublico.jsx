@@ -35,7 +35,6 @@ export function SorteoPublico() {
   const { session } = useAdminSession();
   const [cargando, setCargando] = useState(true);
   const [nombreEvento, setNombreEvento] = useState("Gran Sorteo - Darío Carmona");
-  const [total, setTotal] = useState(0);
   const [fase, setFase] = useState("idle"); // idle | girando | ganador
   const [ganador, setGanador] = useState(null);
   const [error, setError] = useState("");
@@ -54,15 +53,13 @@ export function SorteoPublico() {
     let activo = true;
 
     async function cargar() {
-      const [{ data: config }, { data: conteo }, registros, { data: ganadores }] = await Promise.all([
+      const [{ data: config }, registros, { data: ganadores }] = await Promise.all([
         supabase.from("sorteo_config").select("nombre_evento").eq("id", 1).maybeSingle(),
-        supabase.from("sorteo_participantes_conteo").select("total").maybeSingle(),
         cargarTodosLosParticipantes(),
         supabase.from("sorteo_ganadores").select("registro_id"),
       ]);
       if (!activo) return;
       if (config?.nombre_evento) setNombreEvento(config.nombre_evento);
-      if (conteo?.total != null) setTotal(conteo.total);
       setParticipantes(registros);
       setGanadoresIds(new Set((ganadores || []).map((g) => g.registro_id)));
       setCargando(false);
@@ -316,23 +313,6 @@ export function SorteoPublico() {
         >
           Gracias por ser parte de esta gran comunidad
         </p>
-      </div>
-
-      {/* ── contador ────────────────────────────────────────── */}
-      <div className="relative z-10 mt-6 flex flex-col items-center animate-fade-in-up" style={{ animationDelay: "160ms" }}>
-        <div className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/40">Participantes registrados</div>
-        <div
-          key={total}
-          className="mt-0.5 bg-clip-text font-display text-transparent animate-sorteo-numero-pop"
-          style={{
-            fontSize: "clamp(34px, 6vw, 48px)",
-            lineHeight: 1,
-            backgroundImage: "linear-gradient(180deg, #fde68a 0%, #D4A017 100%)",
-            filter: "drop-shadow(0 0 18px rgba(212,160,23,0.35))",
-          }}
-        >
-          {total.toLocaleString("es-PY")}
-        </div>
       </div>
 
       {/* ── tarjeta central: tambor de nombres + botón ──────────────── */}
